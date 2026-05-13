@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday, Giovanni 🎂</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <div class="particles" id="particles"></div>
+
+  <!-- Floating Emojis -->
+  <div class="floating-emojis" id="floatingEmojis"></div>
+
+  <!-- Music Player -->
+  <div class="music-player" id="musicPlayer">
+    <div class="music-inner">
+      <div class="vinyl" id="vinyl"><div class="vinyl-center"></div></div>
+      <div class="music-info">
+        <p class="music-label">Playing for Giovanni</p>
+        <p class="music-track" id="trackName">Birthday Calm ♪</p>
+      </div>
+      <button class="music-btn" id="musicBtn" onclick="toggleMusic()">▶</button>
+    </div>
+    <div class="playlist" id="playlist">
+      <p onclick="selectTrack('Happy Birthday', 'Stevie Wonder', 'https://open.spotify.com/track/0hKRSZhUGEhKU6aNFMnGbk')">Happy Birthday — Stevie Wonder</p>
+      <p onclick="selectTrack('A Song For You', 'Donny Hathaway', 'https://open.spotify.com/track/2tTkSvdpEkGAd3bznEcaVP')">A Song For You — Donny Hathaway</p>
+      <p onclick="selectTrack('Ribbon in the Sky', 'Stevie Wonder', 'https://open.spotify.com/track/2YwzdNaFZMqXRswCHFNLPE')">Ribbon in the Sky — Stevie Wonder</p>
+      <p onclick="selectTrack('Golden', 'JVKE', 'https://open.spotify.com/track/5odlY52u43F5BjmOh1J7fN')">Golden — JVKE</p>
+      <p onclick="selectTrack('Count on Me', 'Bruno Mars', 'https://open.spotify.com/track/2ndzHFBQHlJJvBGFfZOCSF')">Count on Me — Bruno Mars</p>
+    </div>
+    <button class="playlist-toggle" onclick="togglePlaylist()">♪ Playlist</button>
+  </div>
+
+  <!-- Upload Panel -->
+  <div class="upload-fab" id="uploadFab" onclick="toggleUploadPanel()" title="Add photos">
+    <span>📷</span>
+  </div>
+  <div class="upload-panel" id="uploadPanel">
+    <div class="upload-panel-header">
+      <h3>Add a Photo</h3>
+      <button onclick="toggleUploadPanel()">✕</button>
+    </div>
+    <div class="upload-drop-zone" id="dropZone">
+      <span>📸</span>
+      <p>Click or drag a photo here</p>
+      <input type="file" id="fileInput" accept="image/*" onchange="handleFileSelect(this)">
+    </div>
+    <div class="upload-preview" id="uploadPreview" style="display:none">
+      <img id="previewImg" src="" alt="preview">
+      <button class="remove-preview" onclick="clearPreview()">✕</button>
+    </div>
+    <input type="text" id="captionInput" placeholder="Add a cute caption... 💛" class="caption-input">
+    <button class="upload-submit" onclick="submitUpload()">Upload Photo ↑</button>
+    <p class="upload-status" id="uploadStatus"></p>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="confetti-container" id="confetti"></div>
+    <div class="hero-content">
+      <div class="hero-badge">🎂 It's your day!</div>
+      <p class="hero-eyebrow">Today is all about you ✨</p>
+      <h1 class="hero-name">Giovanni<br><span>Lambert</span></h1>
+      <p class="hero-subtitle">Happy Birthday, our guy 🎂</p>
+      <div class="hero-divider"></div>
+      <p class="hero-desc">From all of us who love you more than words can say — this one's for you.</p>
+      <div class="hero-tags">
+        <span>💙 Loved</span>
+        <span>🌟 Celebrated</span>
+        <span>🙏 Blessed</span>
+        <span>⚓ Strong</span>
+      </div>
+      <button class="scroll-btn" onclick="scrollToNotes()">See our messages ↓</button>
+    </div>
+    <div class="scroll-indicator">scroll</div>
+  </section>
+
+  <!-- Fun Facts / Things We Love About Giovanni -->
+  <section class="love-section">
+    <div class="section-label">just a few things 💙</div>
+    <h2 class="section-title">Things We Love About You</h2>
+    <p class="section-sub">A little reminder of who you are to us.</p>
+    <div class="love-grid">
+      <div class="love-card">
+        <div class="love-icon">💪</div>
+        <h3>Your Strength</h3>
+        <p>You carry weight that most people would buckle under — and you do it quietly, with grace.</p>
+      </div>
+      <div class="love-card">
+        <div class="love-icon">😂</div>
+        <h3>Your Humour</h3>
+        <p>The way you make everyone around you laugh without even trying is a rare and beautiful gift.</p>
+      </div>
+      <div class="love-card">
+        <div class="love-icon">❤️</div>
+        <h3>Your Big Heart</h3>
+        <p>You give and give — your time, your energy, your resources — without keeping score. We see it.</p>
+      </div>
+      <div class="love-card">
+        <div class="love-icon">⚓</div>
+        <h3>Your Steadiness</h3>
+        <p>No matter how far away you are, you are always present in the ways that matter most.</p>
+      </div>
+      <div class="love-card">
+        <div class="love-icon">🙏</div>
+        <h3>Your Faith</h3>
+        <p>You trust God even when the waters are rough. That kind of faith inspires everyone watching.</p>
+      </div>
+      <div class="love-card">
+        <div class="love-icon">🌟</div>
+        <h3>Just You</h3>
+        <p>There is genuinely no one else like you. Giovanni Lambert — one of a kind, and we wouldn't trade you for anything.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Birthday Counter -->
+  <section class="counter-section">
+    <div class="counter-inner">
+      <div class="counter-label">🎉 Today you are celebrated by</div>
+      <div class="counter-numbers">
+        <div class="counter-item">
+          <span class="counter-num" id="heartCount">0</span>
+          <span class="counter-text">Hearts Full of Love</span>
+        </div>
+        <div class="counter-divider">•</div>
+        <div class="counter-item">
+          <span class="counter-num" id="prayerCount">0</span>
+          <span class="counter-text">Prayers Sent Your Way</span>
+        </div>
+        <div class="counter-divider">•</div>
+        <div class="counter-item">
+          <span class="counter-num" id="wishCount">0</span>
+          <span class="counter-text">Birthday Wishes</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery-section">
+    <div class="section-label">memories 📸</div>
+    <h2 class="section-title">Moments with You</h2>
+    <p class="section-sub">Every picture tells a story — and yours is one worth celebrating.</p>
+    <div class="gallery-grid" id="galleryGrid">
+      {% if images %}
+        {% for img in images %}
+        <div class="gallery-item" data-filename="{{ img.filename }}">
+          <img src="{{ url_for('static', filename='images/' + img.filename) }}" alt="Giovanni">
+          {% if img.caption %}<div class="caption">{{ img.caption }}</div>{% endif %}
+          <button class="delete-photo" onclick="deletePhoto('{{ img.filename }}', this)">✕</button>
+        </div>
+        {% endfor %}
+      {% else %}
+        <div class="gallery-empty">
+          <p>📷 No photos yet — click the camera button to add some!</p>
+        </div>
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="timeline-section">
+    <div class="section-label">the journey 🌊</div>
+    <h2 class="section-title">Giovanni Through the Years</h2>
+    <p class="section-sub">A few chapters of an incredible story — still being written.</p>
+    <div class="timeline">
+      <div class="timeline-item left">
+        <div class="timeline-dot">🌱</div>
+        <div class="timeline-card">
+          <h3>The Beginning</h3>
+          <p>A son, a brother, a gift to this family. From day one, you brought something special with you into this world.</p>
+        </div>
+      </div>
+      <div class="timeline-item right">
+        <div class="timeline-dot">⚓</div>
+        <div class="timeline-card">
+          <h3>Setting Sail</h3>
+          <p>You chose a path that took courage — and you embraced it fully. The sea became your world, and you conquered it.</p>
+        </div>
+      </div>
+      <div class="timeline-item left">
+        <div class="timeline-dot">💪</div>
+        <div class="timeline-card">
+          <h3>The Provider</h3>
+          <p>Without being asked, you stepped up. You invested in people you love — in futures that matter to you. That is who you are.</p>
+        </div>
+      </div>
+      <div class="timeline-item right">
+        <div class="timeline-dot">🌟</div>
+        <div class="timeline-card">
+          <h3>Today & Beyond</h3>
+          <p>Another year, another level. This birthday marks the beginning of your greatest chapter yet. We can't wait to watch it unfold.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notes -->
+  <section class="notes-section" id="notesSection">
+    <div class="section-label">with love 💙</div>
+    <h2 class="section-title">Letters to Giovanni</h2>
+    <p class="section-sub">Words straight from our hearts to yours.</p>
+    <div class="notes-grid">
+
+      <div class="note-card featured" data-from="Rhema">
+        <div class="note-tag">Your Sister</div>
+        <div class="note-emoji">🌟</div>
+        <div class="note-content">
+          <p class="note-text">
+            "Happy birthday from your last born. I made this website so that you would know that the money you've invested in my studies is not wasting 😂.
+            <br><br>
+            I'm super glad to have you as my brother and I pray that this shall be your best year yet! You walk in favour and God's endless blessings for your life.
+            <br><br>
+            Please ensure you go out and rest today, and take enough pictures to send to me. Thank you for all you do, I'm forever grateful. Love you! 💜"
+          </p>
+        </div>
+        <div class="note-footer">
+          <span class="note-author">— Rhema</span>
+          <span class="note-heart">♥</span>
+        </div>
+      </div>
+
+      <div class="note-card" data-from="Mum & Dad">
+        <div class="note-tag">Mum & Dad</div>
+        <div class="note-emoji">🙏</div>
+        <div class="note-content">
+          <p class="note-text">
+            "Celebrating with our dear angel on his birth anniversary. It is your time and season for lines to fall on pleasant places for you and for God to continually increase your greatness and favour you on every side, in Jesus Christ's mighty name.
+            <br><br>
+            Mummy and Daddy love and celebrate you always 😘😍🥰🌹 💙"
+          </p>
+        </div>
+        <div class="note-footer">
+          <span class="note-author">— Mum & Dad</span>
+          <span class="note-heart">♥</span>
+        </div>
+      </div>
+
+      <div class="note-card" data-from="Angel">
+        <div class="note-tag">Sister</div>
+        <div class="note-emoji">👼</div>
+        <div class="note-content">
+          <p class="note-text">
+            "Happy Birthday big bro ❤️⚓ Even though you're far away at sea, I hope you know how grateful we all are for you. You've done so much for this family and carried responsibilities without ever complaining. I truly admire your strength, sacrifices, and the way you always put us first.
+            <br><br>
+            I pray God keeps you safe on every journey and brings you back home to us in good health and happiness. I'm so proud to call you my brother.
+            <br><br>
+            Enjoy your day. Love you always 🤍
+            <br><br>
+            Yours, Nenrit 🤎"
+          </p>
+        </div>
+        <div class="note-footer">
+          <span class="note-author">— Angel</span>
+          <span class="note-heart">♥</span>
+        </div>
+      </div>
+
+      <div class="note-card" data-from="Semnen & Moses">
+        <div class="note-tag">Semnen & Moses</div>
+        <div class="note-emoji">💑</div>
+        <div class="note-content">
+          <p class="note-text">
+            "Happy Birthday Man! We love you and we wish you the best! We pray that you continue to walk in God's blessings and plans for your life.
+            <br><br>
+            Have a great year ahead! 💙"
+          </p>
+        </div>
+        <div class="note-footer">
+          <span class="note-author">— Semnen & Moses Osakue</span>
+          <span class="note-heart">♥</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Prayer Wall -->
+  <section class="prayer-section">
+    <div class="section-label">we're praying 🙏</div>
+    <h2 class="section-title">Our Prayers for You</h2>
+    <p class="section-sub">Every single one of these — we mean them.</p>
+    <div class="prayer-grid">
+      <div class="prayer-card">
+        <span class="prayer-icon">🛡️</span>
+        <p>That God's protection surrounds you on every voyage — on land and on sea.</p>
+      </div>
+      <div class="prayer-card">
+        <span class="prayer-icon">💰</span>
+        <p>That favour, promotion, and abundance chase you down this year.</p>
+      </div>
+      <div class="prayer-card">
+        <span class="prayer-icon">❤️</span>
+        <p>That your heart is filled with joy, peace, and everything good.</p>
+      </div>
+      <div class="prayer-card">
+        <span class="prayer-icon">🏠</span>
+        <p>That you return home safely to the people who love you most — always.</p>
+      </div>
+      <div class="prayer-card">
+        <span class="prayer-icon">🌊</span>
+        <p>That the waters you sail on remain calm, and every storm bows to your God.</p>
+      </div>
+      <div class="prayer-card">
+        <span class="prayer-icon">🎯</span>
+        <p>That every dream you have quietly carried finally finds its season this year.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Candle -->
+  <section class="candle-section">
+    <div class="section-label">make a wish 🕯️</div>
+    <h2 class="section-title">Blow Out Your Candle</h2>
+    <p class="section-sub">Click the flame to make a wish, Giovanni.</p>
+    <div class="candle-wrapper">
+      <div class="candle-container" id="candleContainer" onclick="blowCandle()">
+        <div class="flame-wrapper" id="flameWrapper">
+          <div class="flame" id="flame"></div>
+          <div class="flame-glow"></div>
+        </div>
+        <div class="candle-body"><div class="candle-stripes"></div></div>
+        <div class="candle-base"></div>
+      </div>
+      <p class="candle-hint" id="candleHint">Click to blow it out 🎂</p>
+      <p class="wish-text" id="wishText"></p>
+    </div>
+  </section>
+
+  <!-- Final Quote -->
+  <section class="quote-section">
+    <div class="quote-inner">
+      <div class="quote-mark">"</div>
+      <p class="quote-text">The Lord bless you and keep you; the Lord make his face shine on you and be gracious to you; the Lord turn his face toward you and give you peace.</p>
+      <p class="quote-ref">— Numbers 6:24–26</p>
+    </div>
+  </section>
+
+  <!-- Closing -->
+  <section class="closing-section">
+    <div class="closing-inner">
+      <div class="closing-ship">⚓</div>
+      <p class="closing-eyebrow">always and forever</p>
+      <h2 class="closing-title">We love you,<br><em>Giovanni.</em></h2>
+      <p class="closing-sub">May this year bring you everything your heart desires and more. You deserve every single good thing coming your way. 🎂✨</p>
+      <div class="closing-heart-row">💙 💙 💙 💙 💙</div>
+      <div class="closing-signatures">
+        <span>Rhema</span>
+        <span>Mum & Dad</span>
+        <span>Angel</span>
+        <span>Semnen & Moses</span>
+      </div>
+      <p class="closing-footnote">Made with love, by your last born 😂💜</p>
+    </div>
+  </section>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
